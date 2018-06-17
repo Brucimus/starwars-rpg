@@ -1,4 +1,7 @@
 //Win, Loss, is Game Over? Variables
+var wins = 0;
+var losses = 0;
+var gameOver = false;
 
 //Character Objects (Status: Hero, Enemies, Defender, Defeated)
 
