@@ -5,46 +5,82 @@ var gameOver = false;
 var attackNumber = 1;
 
 //Character Objects (Status: Hero, Enemies, Defender, Defeated)
-var chewbacca = {
-    name = "Chewbacca",
-    hp = 100,
-    attack = 9,
-    // image =
-    status = none,
-}
+var characters = [
+    chewbacca = {
+        characterName : "Chewy",
+        hp : 100,
+        attack : 9,
+        image : "assets/images/softwookiee.jpg",
+        status : "none",
+},
+    vader = {
+        characterName : "Darth Vader",
+        hp : 110,
+        attack : 8,
+        image : "assets/images/vader.jpg",
+        status : "none",
+},
+    atAt = {
+        characterName : "All Terrain Armored Transport",
+        hp : 120,
+        attack : 7,
+        image : "assets/images/softwalker.jpg",
+        status : "none",
+},
+    wicket = {
+        characterName : "Wickeet",
+        hp : 90,
+        attack : 10,
+        image : "assets/images/wicketthemusical.jpg",
+        status : "none",
+}]
 
-var vadar = {
-    name = "Darth Vadar",
-    hp = 110,
-    attack = 8,
-    // image =
-    status = none,
-}
+// function displayImages(a,b) {
+//     for (var i = 0; i < characters.length; i++) {
+//         if (characters[i].status == a) {
+        
+//             var holder = document.createElement("p");
+//             $(b).append(holder);
 
-var atAt = {
-    name = "All Terrain Armored Transport",
-    hp = 120,
-    attack = 7,
-    // image =
-    status = none,
-}
+            // Output a word
+            // $(holder).attr("id", colors[i]).text(colors[i]);
 
-var wicket = {
-    name = "Wickeet",
-    hp = 90,
-    attack = 10,
-    // image =
-    status = none,
-}
-
+            // Make word a random color
+            // $(holder).css("color", colorsOfText[i]);
+//         }
+//     }
+// }
 //Place Character Options to hero section
+// displayImages("none","#hero");
+// for (var i = 0; i < characters.length; i++) {
+//     if (characters[i].status == "none") {
+    
+//         var holder = document.createElement("div");
+//         $("#hero").append(holder);
 
+//         $(holder).attr("id", characters[i]).text(characters[i].hp);
+//     }
+// }
+function displayImages(a,b) {
+    for (var i = 0; i < characters.length; i++) {
+        if (characters[i].status == a) {
+        
+            var holder = document.createElement("div");
+            $(b).append(holder);
+
+            $(holder).attr("id", characters[i]).text(characters[i].attack);
+        }
+    }
+}
+
+displayImages("none","#hero");
 
 //Choose Hero
-
+displayImages("hero","#hero");
     //Moves other hero options to Enemies Section
-
+displayImages("enemies","#enemies");
 //Choose Defender
+displayImages("defender","#defender");
 
     //Moves Defender to Defender and leaves the others in Enemies Section
 
