@@ -65,10 +65,11 @@ function displayImages(a,b) {
     for (var i = 0; i < characters.length; i++) {
         if (characters[i].status == a) {
         
-            var holder = document.createElement("div");
+            var holder = document.createElement("img");
+            holder.src = characters[i].image;
+            holder.setAttribute("height", "200");
+            holder.setAttribute("width", "200");
             $(b).append(holder);
-
-            $(holder).attr("id", characters[i]).text(characters[i].attack);
         }
     }
 }
