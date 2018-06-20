@@ -46,7 +46,7 @@ function displayImages(a,b) {
                 "src":characters[i].image,
                 "height": "200px",
                 "Width": "200px",
-                "class": characters[i].statuts})
+                "class": characters[i].status})
             $(b).append(holder);
         }
     }
