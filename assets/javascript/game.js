@@ -2,6 +2,8 @@
 var wins = 0;
 var losses = 0;
 var gameOver = false;
+var heroChosen = false;
+var defenderChosen = false;
 var attackNumber = 1;
 
 //Character Objects (Status: Hero, Enemies, Defender, Defeated)
@@ -35,53 +37,51 @@ var characters = [
         status : "none",
 }]
 
-// function displayImages(a,b) {
-//     for (var i = 0; i < characters.length; i++) {
-//         if (characters[i].status == a) {
-        
-//             var holder = document.createElement("p");
-//             $(b).append(holder);
-
-            // Output a word
-            // $(holder).attr("id", colors[i]).text(colors[i]);
-
-            // Make word a random color
-            // $(holder).css("color", colorsOfText[i]);
-//         }
-//     }
-// }
-//Place Character Options to hero section
-// displayImages("none","#hero");
-// for (var i = 0; i < characters.length; i++) {
-//     if (characters[i].status == "none") {
-    
-//         var holder = document.createElement("div");
-//         $("#hero").append(holder);
-
-//         $(holder).attr("id", characters[i]).text(characters[i].hp);
-//     }
-// }
+//Display Images Function
 function displayImages(a,b) {
     for (var i = 0; i < characters.length; i++) {
         if (characters[i].status == a) {
         
-            var holder = document.createElement("img");
-            holder.src = characters[i].image;
-            holder.setAttribute("height", "200");
-            holder.setAttribute("width", "200");
+            var holder = $("<img>").attr({
+                "src":characters[i].image,
+                "height": "200px",
+                "Width": "200px",
+                "class": characters[i].statuts})
             $(b).append(holder);
         }
     }
 }
 
-displayImages("none","#hero");
+//Clear Elements Function
+function clear() {
+    $("#hero").empty();
+    $("#enemies").empty();
+    $("#defender").empty();
+}
 
+//Clear and Redisplay Everything Function
+function redisplay() {
+    clear();
+    if (heroChosen === false) {
+        displayImages("none","#hero");
+    } else {
+        displayImages("hero","#hero");
+        displayImages("enemy","#enemies");
+        displayImages("defender","#defender");
+    }
+}
+
+//Place Character Options to hero section
+redisplay();
 //Choose Hero
-displayImages("hero","#hero");
+$("#hero").on("click",".none", function() {
+    $(this).status = "hero";
+    // heroChosen = true;
+    // $(".none").status = "enemy";
     //Moves other hero options to Enemies Section
-displayImages("enemies","#enemies");
+    redisplay();
+})
 //Choose Defender
-displayImages("defender","#defender");
 
     //Moves Defender to Defender and leaves the others in Enemies Section
 
