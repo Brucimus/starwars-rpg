@@ -1,4 +1,5 @@
 //Variables
+var gameOver = false;
 var heroChosen = false;
 var defenderChosen = false;
 var attackNumber = 1;
@@ -64,6 +65,9 @@ function clear() {
     $("#hero").empty();
     $("#enemies").empty();
     $("#defender").empty();
+    $("#hero").html("<p> HERO </p>");
+    $("#enemies").html("<p> ENEMIES </p>");
+    $("#defender").html("<p> DEFENDER </p>");
 }
 
 //Clear and Redisplay Everything Function
@@ -101,7 +105,7 @@ function attackButton() {
     if (defenderChosen) {
         $("#attack").click(function() {
             for (var i = 0; i < characters.length; i++) {
-                if (document.getElementById("defender").children[0].id === characters[i].characterName) {
+                if (document.getElementById("defender").children[1].id === characters[i].characterName) {
                     characters[i].hp = characters[i].hp - (heroAttackValue * attackNumber);
                     attackNumber++;
 
