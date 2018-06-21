@@ -1,11 +1,10 @@
-//Win, Loss, is Game Over? Variables
-var wins = 0;
-var losses = 0;
-var gameOver = false;
+//Variables
 var heroChosen = false;
 var defenderChosen = false;
 var attackNumber = 1;
 var heroAttackValue = 0;
+var heroRef;
+var enemyNumber;
 
 //Character Objects (Status: Hero, Enemies, Defender, Defeated)
 var characters = [
@@ -50,7 +49,6 @@ function displayImages(a,b) {
                 "src":characters[i].image,
                 "height": "200px",
                 "Width": "200px",
-               // "class": characters[i].status,
                 "value": characters[i].status.toString(),
                 "id": characters[i].characterName.toString(),
                 "data-class": characters[i].hp
@@ -88,6 +86,7 @@ function pickDefender() {
                 if (document.getElementById(this.id).id === characters[i].characterName) {
                     characters[i].status = "defender";
                     defenderChosen = "true";
+                    enemyNumber--;
                 }
             }
         }
@@ -105,12 +104,39 @@ function attackButton() {
                 if (document.getElementById("defender").children[0].id === characters[i].characterName) {
                     characters[i].hp = characters[i].hp - (heroAttackValue * attackNumber);
                     attackNumber++;
+
+                    //If Defender Still has HP, attack hero
+                    if (characters[i].hp > 0) {
+                        heroRef.hp = heroRef.hp - characters[i].attack;
+                    } else {
+
+                        //Defeated Defender is removed and player asked to pick another defender
+                        characters[i].status = "none";
+                        $("#defender").empty();
+                        defenderChosen = false;
+                        if (enemyNumber === 0) {
+
+                            //Alert Win If all Enemies Defeated
+                            alert("You Win! The Force is strong within you.")
+                            return;
+                        } else {
+                            pickDefender();
+                            break;
+                        }
+                    }
+
+                    //Alert Loss If Player Loses All Health
+                    if (heroRef.hp <= 0) {
+                        alert("You Lose! If you only knew the power of The Dark Side.")
+                        return;
+                    }
                 }
+                redisplay();
+
             }
-        //If Defender Still has HP, attack hero
-        
         })
     }
+
 }
 //Place Character Options to hero section
 redisplay();
@@ -122,6 +148,8 @@ $(".pics").on("click", function() {
             characters[i].status = "hero";
             heroAttackValue = characters[i].attack; 
             heroChosen = true;
+            heroRef = characters[i];
+            enemyNumber = 3;
         } else {
             characters[i].status = "enemy";
         }
@@ -132,8 +160,3 @@ $(".pics").on("click", function() {
     pickDefender();
 })
 
-//If all Enemies Defeated Add Win
-
-//If Player Loses All Health Add Loss
-
-//Defeated Defender is removed and player asked to pick another defender
