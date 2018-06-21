@@ -5,6 +5,7 @@ var gameOver = false;
 var heroChosen = false;
 var defenderChosen = false;
 var attackNumber = 1;
+var heroAttackValue = 0;
 
 //Character Objects (Status: Hero, Enemies, Defender, Defeated)
 var characters = [
@@ -92,9 +93,25 @@ function pickDefender() {
         }
         //Moves Defender to Defender and leaves the others in Enemies Section
         redisplay();
+        attackButton();
     })
 }
 
+//Attack Button, Player Attacks, adds hit strength and decrease Defender HP
+function attackButton() {
+    if (defenderChosen) {
+        $("#attack").click(function() {
+            for (var i = 0; i < characters.length; i++) {
+                if (document.getElementById("defender").children[0].id === characters[i].characterName) {
+                    characters[i].hp = characters[i].hp - (heroAttackValue * attackNumber);
+                    attackNumber++;
+                }
+            }
+        //If Defender Still has HP, attack hero
+        
+        })
+    }
+}
 //Place Character Options to hero section
 redisplay();
 
@@ -103,6 +120,7 @@ $(".pics").on("click", function() {
     for (var i = 0; i < characters.length; i++) {
         if (document.getElementById(this.id).id === characters[i].characterName) {
             characters[i].status = "hero";
+            heroAttackValue = characters[i].attack; 
             heroChosen = true;
         } else {
             characters[i].status = "enemy";
@@ -118,10 +136,4 @@ $(".pics").on("click", function() {
 
 //If Player Loses All Health Add Loss
 
-//Attack Button, Player Attacks, adds hit strength and decrease Defender HP
-    // $("#attack").click(function() {
-    //     def
-    
-    // //If Defender Still has HP, attack hero
-    // })
 //Defeated Defender is removed and player asked to pick another defender
